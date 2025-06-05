@@ -1,12 +1,34 @@
 import { useState } from 'react'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Login from './pages/auth/Login'
+import SignUp from './pages/auth/SignUp'
+import { app } from './firebase'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-    App
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+      </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+
     </>
   )
 }
