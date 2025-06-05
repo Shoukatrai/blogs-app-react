@@ -5,6 +5,8 @@ import Login from './pages/auth/Login'
 import SignUp from './pages/auth/SignUp'
 import { app } from './firebase'
 import { Bounce, ToastContainer } from 'react-toastify'
+import Dashboard from './pages/Dashboard'
+import CreateBlog from './pages/CreateBlog'
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/createBlog' element={<CreateBlog />} />
       </Routes>
       <ToastContainer
         position="top-right"
