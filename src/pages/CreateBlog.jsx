@@ -1,31 +1,69 @@
 import { Fullscreen, Style } from '@mui/icons-material'
-import { Box, Button, Stack, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Stack, TextareaAutosize, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { db } from '../firebase'
 import { addDoc, collection } from 'firebase/firestore'
+import { Bounce, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const CreateBlog = () => {
     const [title, setTitle] = useState("")
     const [author, setAuthor] = useState("")
     const [desc, setDesc] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+
+    const navigate = useNavigate()
 
     const createBlogHandler = async () => {
+
+
         console.log("title", title)
         console.log("author", author)
         console.log("desc", desc)
+        const userId = localStorage.getItem("userId")
+        console.log("userId", userId)
+
         const saveObj = {
             title,
             author,
             desc,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            userId
         }
         try {
+            setIsLoading(true)
             const blog = await addDoc(collection(db, "blogs"), saveObj);
-            console.log("Document written with ID: ", blog.id);
+            console.log("Document written with ID: ", blog);
+            setIsLoading(false)
+            toast.success('Sign Up Successful!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            navigate("/dashboard")
+            
         } catch (error) {
-            console.log("error" , error)
-        }   
+            console.log("error", error)
+            setIsLoading(false)
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     }
 
 
@@ -75,7 +113,12 @@ const CreateBlog = () => {
                         style={{ width: "100%", height: "20%", outline: "blue", padding: "5px" }}
 
                     />
-                    <Button variant='contained' onClick={createBlogHandler} > Create Blog </Button>
+                    <Button variant='contained' onClick={createBlogHandler} >
+                        {
+                            isLoading && <CircularProgress color='white' size={"25px"} />
+                        }
+
+                        Create Blog </Button>
                 </Stack>
 
 

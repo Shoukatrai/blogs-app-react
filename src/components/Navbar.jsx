@@ -7,20 +7,22 @@ const Navbar = () => {
         <>
             <Stack flex={"flex"} justifyContent={"space-between"} flexDirection={"row"} padding={"10px"} alignItems={"center"} >
                 <Typography variant='h4' fontWeight={"bold"}  >
-                    <Typography variant='span' color='blue' >
-                        Blogs
-                    </Typography>
-                     <Typography variant='span' color='red' >
-                        App
-                    </Typography>
+                    <Link to={"/dashboard"} >
+                        <Typography variant='span' color='blue' >
+                            Blogs
+                        </Typography>
+                        <Typography variant='span' color='red' >
+                            App
+                        </Typography>
+                    </Link>
                 </Typography>
 
                 <Stack flex={"flex"} justifyContent={"space-between"} flexDirection={"row"} gap={10} fontSize={20}  >
-                    <Link>
+                    <Link to={"/dashboard"} >
                         Home
                     </Link>
 
-                     <Link color='blue'>
+                    <Link color='blue' to={"/myBlogs"}>
                         My Blogs
                     </Link>
 
@@ -28,7 +30,7 @@ const Navbar = () => {
                         Create Blog
                     </Link>
 
-                     <Link color='blue'>
+                    <Link color='blue'>
                         Profile
                     </Link>
                 </Stack>

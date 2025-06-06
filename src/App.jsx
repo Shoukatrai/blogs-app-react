@@ -7,6 +7,7 @@ import { app } from './firebase'
 import { Bounce, ToastContainer } from 'react-toastify'
 import Dashboard from './pages/Dashboard'
 import CreateBlog from './pages/CreateBlog'
+import MyBlogs from './pages/MyBlogs'
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/createBlog' element={<CreateBlog />} />
+        <Route path='/myBlogs' element={<MyBlogs />} />
+        
       </Routes>
       <ToastContainer
         position="top-right"

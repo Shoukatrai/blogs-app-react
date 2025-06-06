@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
+import { Button, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -33,6 +33,11 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
+
+      console.log("user", user)
+      localStorage.setItem("userId", user.user.uid)
+
+
       navigate("/dashboard")
     } catch (error) {
       // console.log("error", error)
@@ -86,7 +91,11 @@ const Login = () => {
           <Typography variant="body2">
             Don't have an account? <Link to="/signup">Signup</Link>
           </Typography>
-          <Button variant='contained' onClick={loginHandler} >Login</Button>
+          <Button variant='contained' onClick={loginHandler} >
+            {
+              isLoading && <CircularProgress color='white' size={"25px"} />
+            }
+            Login</Button>
         </Stack>
       </Stack>
 
