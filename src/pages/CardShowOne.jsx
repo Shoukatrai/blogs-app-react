@@ -1,22 +1,39 @@
 import { Button, Stack, Typography } from "@mui/material"
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react"
 import { db } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { useParams } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
-const Card = ({ data, eidtBlogHandler }) => {
+const CardShowOne = () => {
     const [loginUser, setLoginUser] = useState();
-    const navigate = useNavigate()
+    const [bId, setBId] = useState("")
 
-    const showFullCard = (id) => {
-        navigate(`/blogs/${id}`)
+    const [data, setData] = useState([])
+    const params = useParams()
+    console.log("params", params)
+    const getBlog = async () => {
+
+        try {
+
+            const docRef = doc(db, "blogs", params.id);
+            const docSnap = await getDoc(docRef);
+            // console.log("docSnap" , docSnap.data())
+            setData(docSnap.data())
+
+        } catch (error) {
+            console.log("error", error)
+        }
     }
+
+    useEffect(() => {
+        getBlog()
+    }, []);
 
     useEffect(() => {
         const uid = localStorage.getItem("userId");
         setLoginUser(uid === data.userId);
     }, [data.userId]);
-
 
 
 
@@ -30,8 +47,15 @@ const Card = ({ data, eidtBlogHandler }) => {
         }
 
     }
+
+    const eidtBlogHandler = async (blogId) => {
+        setBId(params.id)
+        console.log("blogId", bId)
+    }
     return (
+
         <>
+            <Navbar />
             <Stack
                 bgcolor={"blueviolet"}
                 padding={5}
@@ -63,9 +87,6 @@ const Card = ({ data, eidtBlogHandler }) => {
                 </Typography>
 
                 <Stack flex={"flex"} flexDirection={"row"} justifyItems={"end"} gap={2} >
-                    <Button variant="outlined" sx={{ color: "white" }} onClick={()=>{
-                        showFullCard(data?.id)
-                    }} >See More</Button>
                     {
                         loginUser && <>
                             <Button variant="contained" onClick={() => {
@@ -76,10 +97,10 @@ const Card = ({ data, eidtBlogHandler }) => {
                             }} >Delete</Button>
                         </>
                     }
-                </Stack>
+                </Stack >
             </Stack>
         </>
     )
 }
 
-export default Card
+export default CardShowOne

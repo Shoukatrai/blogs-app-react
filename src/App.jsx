@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import CreateBlog from './pages/CreateBlog'
 import MyBlogs from './pages/MyBlogs'
 import Protected from './components/Protected'
+import CardShowOne from './pages/CardShowOne'
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
         <Route path='/dashboard' element={<Protected Component = {Dashboard } />} />
         <Route path='/createBlog' element={<Protected Component = {CreateBlog } />} />
         <Route path='/myBlogs' element={<Protected Component = {MyBlogs } />} />
-        
+        <Route path='/blogs/:id' element={<Protected Component = {CardShowOne} />} />
       </Routes>
 
 
