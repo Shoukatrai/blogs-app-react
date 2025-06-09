@@ -2,6 +2,9 @@ import { Fullscreen, Style } from '@mui/icons-material'
 import { Box, Button, CircularProgress, Stack, TextareaAutosize, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Bounce, toast } from 'react-toastify'
+import { db } from '../firebase'
+import { addDoc, collection } from 'firebase/firestore'
 
 const CreateBlogCard = () => {
     const [title, setTitle] = useState("")
@@ -32,7 +35,7 @@ const CreateBlogCard = () => {
             const blog = await addDoc(collection(db, "blogs"), saveObj);
             console.log("Document written with ID: ", blog);
             setIsLoading(false)
-            toast.success('Sign Up Successful!', {
+            toast.success('Blog Created Successful!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

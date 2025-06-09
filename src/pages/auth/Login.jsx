@@ -15,14 +15,12 @@ const Login = () => {
 
 
   const loginHandler = async () => {
-    console.log("email ", email)
-    console.log("epassword", password)
     try {
       setIsLoading(true)
       const user = await signInWithEmailAndPassword(auth, email, password)
-      // console.log("user", user)
+    
       setIsLoading(false)
-      toast.success('Sign Up Successful!', {
+      toast.success('Login Successful!', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -34,13 +32,11 @@ const Login = () => {
         transition: Bounce,
       });
 
-      console.log("user", user)
       localStorage.setItem("userId", user.user.uid)
 
 
       navigate("/dashboard")
     } catch (error) {
-      // console.log("error", error)
       setIsLoading(false)
       toast.error(error.message, {
         position: "top-right",
@@ -82,7 +78,7 @@ const Login = () => {
 
 
 
-          <TextField label="Password" variant="outlined" required
+          <TextField label="Password" variant="outlined" required type='password'
             onChange={(e) => {
               setPassword(e.target.value)
             }}
@@ -91,9 +87,11 @@ const Login = () => {
           <Typography variant="body2">
             Don't have an account? <Link to="/signup">Signup</Link>
           </Typography>
-          <Button variant='contained' onClick={loginHandler} >
+          <Button variant='contained' onClick={loginHandler} sx={
+            {display :'flex' , gap: "15px"}
+          } >
             {
-              isLoading && <CircularProgress color='white' size={"25px"} />
+              isLoading && <CircularProgress color='white' size={"20px"} />
             }
             Login</Button>
         </Stack>

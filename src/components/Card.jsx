@@ -2,7 +2,6 @@ import { Button, Stack, Typography } from "@mui/material"
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react"
 import { db } from "../firebase";
-import CreateBlogCard from "./CreateBlogCard";
 
 const Card = ({ data, eidtBlogHandler }) => {
     const [loginUser, setLoginUser] = useState();
@@ -12,7 +11,7 @@ const Card = ({ data, eidtBlogHandler }) => {
         setLoginUser(uid === data.userId);
     }, [data.userId]);
 
-   
+
 
 
     const deleteBlogHandler = async (blogId) => {
@@ -27,23 +26,26 @@ const Card = ({ data, eidtBlogHandler }) => {
     }
     return (
         <>
-            <Stack bgcolor={"blueviolet"} padding={5} borderRadius={10} flex={"flex"} justifyContent={"space-between"} gap={2} >
-                
-              
-                
+            <Stack
+                bgcolor={"blueviolet"}
+                padding={5}
+                borderRadius={10}
+                flex={"flex"}
+                justifyContent={"space-between"}
+                gap={2}
+                minWidth={"100%"}
+                textOverflow={"hidden"}
+            >
+
+
+
                 <Typography variant="h4" >
                     {data?.title}
                 </Typography>
 
                 <Typography
                     sx={{
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        maxHeight: '4.5em',
-                        minHeight: '4.5em',
+                        textWrap: "wrap"
                     }}
                 >
                     {data?.desc}

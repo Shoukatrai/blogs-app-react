@@ -8,6 +8,7 @@ import { Bounce, ToastContainer } from 'react-toastify'
 import Dashboard from './pages/Dashboard'
 import CreateBlog from './pages/CreateBlog'
 import MyBlogs from './pages/MyBlogs'
+import Protected from './components/Protected'
 
 function App() {
 
@@ -17,11 +18,14 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/createBlog' element={<CreateBlog />} />
-        <Route path='/myBlogs' element={<MyBlogs />} />
+        <Route path='/dashboard' element={<Protected Component = {Dashboard } />} />
+        <Route path='/createBlog' element={<Protected Component = {CreateBlog } />} />
+        <Route path='/myBlogs' element={<Protected Component = {MyBlogs } />} />
         
       </Routes>
+
+
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
